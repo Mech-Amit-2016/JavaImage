@@ -9,7 +9,7 @@ import javax.imageio.*;
 //************ supporting class to get pixel properties at any point ***************************//
 public class ImageImplanting
 {
-static ArrayList zeropixellist=new ArrayList();
+static ArrayList zeropixellist=new ArrayList(); 
 
 //**************************************************************************************************************
 

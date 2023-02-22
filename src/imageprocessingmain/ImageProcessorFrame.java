@@ -4,30 +4,38 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.image.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 // this is our main class
 //please execute the code to see demo
 // programm execution starts from here after running this code we get a window onour screen which is our main window
 // for editing the image.
 // the utilities of this applicaton are given below
-
 public class ImageProcessorFrame extends JFrame implements ActionListener {
 
     private JMenuBar mb;
     private JMenu file, utilities;
-    private LookAndFeelMenu themes;
+
 //    the application window contains three pannel
 //    In first two pannel we take input image 
 //    in third pannel we get edited result of both images
     private ImagePanel p1, p2, p3;
     private JFileChooser chooser;
-    private TrayIcon trayIcon;
+
     private JFrame frame;
 
     public ImageProcessorFrame() {
         
+        try {
+            setIconImage(ImageIO.read(new File("LOGO.jpg")));
+        } catch (IOException ex) {
+            Logger.getLogger(ImageProcessorFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
 //   Registering windoListner to perform ativty on happening window event
-
         this.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -38,7 +46,7 @@ public class ImageProcessorFrame extends JFrame implements ActionListener {
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
+            }
 
             @Override
             public void windowClosed(WindowEvent e) {
@@ -66,26 +74,6 @@ public class ImageProcessorFrame extends JFrame implements ActionListener {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
-        if (!SystemTray.isSupported()) {
-            System.err.println("System tray is not supported");
-            return;
-        }
-        SystemTray tray = SystemTray.getSystemTray();
-        Image img = Toolkit.getDefaultToolkit().getImage("LOGO.jpg");
-        PopupMenu popup = new PopupMenu();
-        MenuItem exit = new MenuItem("Exit");
-        exit.addActionListener(this);
-        popup.add(exit);
-        trayIcon = new TrayIcon(img, "Image Processing ", popup);
-        trayIcon.setImageAutoSize(true);
-
-        try {
-            tray.add(trayIcon);
-            trayIcon.setActionCommand("Hello");
-            trayIcon.addActionListener(this);
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
 
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         setSize(d.width, d.height);
@@ -94,15 +82,13 @@ public class ImageProcessorFrame extends JFrame implements ActionListener {
         mb = new JMenuBar();
         setJMenuBar(mb);
         file = new JMenu("File");
-        themes = new LookAndFeelMenu(this);
-        mb.add(themes);
         file.setMnemonic('F');
         mb.add(file);
         JMenuItem quit = new JMenuItem("Quit");
         quit.setMnemonic('Q');
         quit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.ALT_MASK));
         file.add(quit);
-         utilities = new JMenu("Utilities");
+        utilities = new JMenu("Utilities");
         utilities.setMnemonic('U');
         mb.add(utilities);
 
@@ -192,6 +178,7 @@ public class ImageProcessorFrame extends JFrame implements ActionListener {
     }
 // this is our actionPerformred metod in this we handel the event when we click on any utility of our application window
 //    
+
     public void actionPerformed(ActionEvent ev) {
         Object ob = ev.getActionCommand();
         if (ob.equals("Hello")) {
