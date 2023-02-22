@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-
+// hello world
 // this is our main class
 //please execute the code to see demo
 // programm execution starts from here after running this code we get a window onour screen which is our main window
@@ -27,7 +27,7 @@ public class ImageProcessorFrame extends JFrame implements ActionListener {
     private JFileChooser chooser;
 
     private JFrame frame;
-
+//
     public ImageProcessorFrame() {
         
         try {
@@ -178,7 +178,7 @@ public class ImageProcessorFrame extends JFrame implements ActionListener {
     }
 // this is our actionPerformred metod in this we handel the event when we click on any utility of our application window
 //    
-
+// 
     public void actionPerformed(ActionEvent ev) {
         Object ob = ev.getActionCommand();
         if (ob.equals("Hello")) {
